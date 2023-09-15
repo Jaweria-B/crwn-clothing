@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import Header from './components/header/header.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
 
@@ -12,6 +13,7 @@ const HatsPage = () => (
 function App() {
   return (
     <div>
+      <Header/> 
       <Routes>
         <Route exact path='/' element={<HomePage/>} />
         <Route index path='/shop/hats' element={<HatsPage/>} />
