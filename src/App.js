@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/header/header.component';
+import SignInAndSignUpPage from './pages/signIn-and-signUpPage/signIn-and-signUp.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
 
@@ -16,7 +17,8 @@ function App() {
       <Header/> 
       <Routes>
         <Route exact path='/' element={<HomePage/>} />
-        <Route index path='/shop/hats' element={<HatsPage/>} />
+        <Route path='/signin' element={<SignInAndSignUpPage/>} />
+        <Route path='/shop/hats' element={<HatsPage/>} />
         <Route path='/shop' element={<ShopPage/>}/>
       </Routes>
     </div>
