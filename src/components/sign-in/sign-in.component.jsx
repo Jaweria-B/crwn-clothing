@@ -3,6 +3,8 @@ import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
+import { signInWithGooglePopup } from '../../firebase/firebase.utils';
+
 const defaultFormFields = {
     email: '',
     password: ''
@@ -26,6 +28,11 @@ const SignIn = () => {
         const {name, value} = event.target;
         setFormFields({ ...formFields, [name]: value});
     }
+
+    async function signInWithGoogle () {
+        await signInWithGooglePopup();
+    };
+    
     return (
         <div className='sign-in'>
             <h2>I already have an account</h2>
@@ -50,7 +57,10 @@ const SignIn = () => {
                 required
                 />
 
-                <CustomButton type='submit'> Sign In </CustomButton>
+                <div className='buttons'>
+                    <CustomButton type='submit'> Sign In </CustomButton>
+                    <CustomButton onClick={signInWithGooglePopup} isGoogleSignIn={true}> Google SignIn </CustomButton>
+                </div>
             </form>
         </div>
     )
