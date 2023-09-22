@@ -5,8 +5,9 @@ import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/signIn-and-signUpPage/signIn-and-signUp.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
-import { auth } from './firebase/firebase.utils';
-import { useEffect, useState, useRef } from 'react';
+import { auth, createUserDocumentFromAuth, db } from './firebase/firebase.utils';
+import { useEffect, useState, userRef } from 'react';
+import { onSnapshot } from 'firebase/firestore';
 
 const HatsPage = () => (
   <div>
@@ -18,9 +19,22 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   useEffect(
     () => {
-       const unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-        setCurrentUser(user);
-        console.log(user);
+       const unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+        if (userAuth) {
+          const userRef = await createUserDocumentFromAuth(userAuth);
+          // userRef.onSnapshot( SnapShot => {
+          //   console.log(SnapShot.data());
+          // })
+          onSnapshot(userRef, (snapshot) => {
+            const setUser = {
+              id: snapshot.id,
+              ...snapshot.data()
+            }            
+            setCurrentUser(setUser);
+            console.log(currentUser)
+          });
+        }
+        setCurrentUser(userAuth);
       })
 
       return () => {

@@ -18,6 +18,7 @@ setDoc,
 collection,
 writeBatch,
 query,
+Firestore,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -37,10 +38,39 @@ provider.setCustomParameters({
     'prompt': 'select_account'
 });
 
-export const auth = getAuth();
+export const auth = getAuth(app);
 auth.languageCode = 'it';
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 
 export const db = getFirestore(app);
+
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
+  if (!userAuth) return;
+
+  const userRef = doc(db, 'users', userAuth.uid);
+
+  const snapShot = await getDoc(userRef);
+
+  if (!snapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalInformation,
+      });
+    } catch (error) {
+      console.log('error creating the user', error.message);
+    }
+  }
+
+  return userRef;
+};
