@@ -3,7 +3,7 @@ import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signInWithGooglePopup } from '../../firebase/firebase.utils';
+import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from '../../firebase/firebase.utils';
 
 const defaultFormFields = {
     email: '',
@@ -21,7 +21,13 @@ const SignIn = () => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        resetFormField();
+        
+        try {
+            await signInAuthUserWithEmailAndPassword(email, password);
+            resetFormField();
+        } catch (error) {
+            console.log('user sign in failed', error)
+        }
     }
 
     async function handleChange(event){

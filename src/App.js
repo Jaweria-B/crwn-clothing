@@ -31,7 +31,7 @@ function App() {
               ...snapshot.data()
             }            
             setCurrentUser(setUser);
-            console.log(currentUser)
+            // console.log(currentUser)
           });
         }
         setCurrentUser(userAuth);
