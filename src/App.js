@@ -1,13 +1,15 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/signIn-and-signUpPage/signIn-and-signUp.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
-import { auth, createUserDocumentFromAuth, db } from './firebase/firebase.utils';
-import { useEffect, useState, userRef } from 'react';
-import { onSnapshot } from 'firebase/firestore';
+import { createUserDocumentFromAuth, onAuthStateChangedListener } from './firebase/firebase.utils';
+import { useEffect } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { setCurrentUser } from './redux/user/user-actions';
+import { selectCurrentUser } from './redux/user/user-selector';
 
 const HatsPage = () => (
   <div>
@@ -16,40 +18,34 @@ const HatsPage = () => (
 );
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
-  useEffect(
+  const currentUser = useSelector(selectCurrentUser, {
+    equalityFn: shallowEqual,
+  });
+  const dispatch = useDispatch();
+  useEffect( 
     () => {
-       const unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
-        if (userAuth) {
-          const userRef = await createUserDocumentFromAuth(userAuth);
-          // userRef.onSnapshot( SnapShot => {
-          //   console.log(SnapShot.data());
-          // })
-          onSnapshot(userRef, (snapshot) => {
-            const setUser = {
-              id: snapshot.id,
-              ...snapshot.data()
-            }            
-            setCurrentUser(setUser);
-            // console.log(currentUser)
-          });
+      const unsubscribe = onAuthStateChangedListener((user) => {
+        if (user) {
+          createUserDocumentFromAuth(user);
         }
-        setCurrentUser(userAuth);
-      })
-
-      return () => {
-        unsubscribeFromAuth();
-        console.log("UnMount");
-      }
+  
+        dispatch(setCurrentUser(user));
+      });
+  
+      return unsubscribe;
     }
-    , []
+    , [dispatch]
   );
   return (
     <div>
-      <Header currentUser={currentUser}/> 
+      <Header/> 
       <Routes>
         <Route exact path='/' element={<HomePage/>} />
-        <Route path='/signin' element={<SignInAndSignUpPage/>} />
+        <Route exact path='/signin'
+         element={
+          currentUser ? (<Navigate to='/' />) : (<SignInAndSignUpPage/>)
+          }  
+        />
         <Route path='/shop/hats' element={<HatsPage/>} />
         <Route path='/shop' element={<ShopPage/>}/>
       </Routes>

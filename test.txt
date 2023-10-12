@@ -22,3 +22,33 @@ import {
 
 //     return ComponentWithRouterProp;
 // }
+
+
+// ----changed----
+// useEffect(
+//   () => {
+//     const unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+//      if (userAuth) {
+//        const userRef = await createUserDocumentFromAuth(userAuth);
+//        // userRef.onSnapshot( SnapShot => {
+//        //   console.log(SnapShot.data());
+//        // })
+//        onSnapshot(userRef, (snapshot) => {
+//          const setUser = {
+//            id: snapshot.id,
+//            ...snapshot.data()
+//          }            
+//          setCurrentUser(setUser);
+//          // console.log(currentUser)
+//        });
+//      }
+//      setCurrentUser(userAuth);
+//    })
+
+//    return () => {
+//      unsubscribeFromAuth();
+//      console.log("UnMount");
+//    }
+//  }
+//  , []
+// );

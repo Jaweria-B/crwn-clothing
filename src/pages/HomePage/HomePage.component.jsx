@@ -1,3 +1,7 @@
+// HomePage is simply just the Navigation page it has nothing to do with the home page
+
+
+
 import { Outlet } from "react-router-dom";
 import './HomePage.styles.scss'
 
