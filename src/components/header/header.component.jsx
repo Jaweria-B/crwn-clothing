@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, connect } from 'react-redux';
 
 import './header.styles.scss';
 
