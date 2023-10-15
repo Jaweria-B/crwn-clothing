@@ -1,31 +1,53 @@
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import { Fragment, useContext } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import './header.styles.scss';
+
 import {ReactComponent as Logo} from '../../assets/header-logo/crown.svg';
-import {auth, signOutUser} from '../../firebase/firebase.utils';
+
+import { signOutUser} from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user-selector';
+
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropDown from '../cart-dropdown/cart-dropdown.component';
+
+import { CartContext } from '../../contexts/cart.context';
 
 const Header = () => {
     const currentUser = useSelector(selectCurrentUser, {
         equalityFn: shallowEqual,
-      });
+    });
+
+    const { isCartOpen } = useContext(CartContext);
+
     return (
-        <div className='header'>
-            <Link to='/' className='loogo-container'>
-                <Logo className='logo'/>
-            </Link>
-            <div className='options'>
-                <Link to='/shop' className='option'> SHOP </Link>
-                <Link to='/shop' className='option'> CONTACT </Link>
+        <Fragment>
+            <div className='header'>
+                <Link to='/' className='loogo-container'>
+                    <Logo className='logo'/>
+                </Link>
+                <div className='options'>
+                    <Link to='/shop' className='option'> SHOP </Link>
+                    <Link to='/shop' className='option'> CONTACT </Link>
+                    {
+                        currentUser ?
+                        (<div className='option' onClick={signOutUser}>SIGN OUT</div>)
+                        :
+                        (<Link to='/signin' className='option'>SIGN IN</Link>)
+                    }
+                    <CartIcon/>
+                </div>
                 {
-                    currentUser ?
-                    (<div className='option' onClick={signOutUser}>SIGN OUT</div>)
+                    isCartOpen ?
+                    null
                     :
-                    (<Link to='/signin' className='option'>SIGN IN</Link>)
+                    <CartDropDown/>
                 }
+                {/* { isCartOpen && <CartDropDown/>} */}
             </div>
-        </div>
+            <Outlet/>
+        </Fragment>
     )
 }
 export default Header;

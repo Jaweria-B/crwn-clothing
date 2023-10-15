@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { BUTTON_TYPE_CLASSES } from '../custom-button/custom-button.component';
 
 import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from '../../firebase/firebase.utils';
 
@@ -65,7 +66,7 @@ const SignIn = () => {
 
                 <div className='buttons'>
                     <CustomButton type='submit'> Sign In </CustomButton>
-                    <CustomButton onClick={signInWithGooglePopup} isGoogleSignIn={true}> Google SignIn </CustomButton>
+                    <CustomButton onClick={signInWithGooglePopup} buttonType={BUTTON_TYPE_CLASSES.google} > Google SignIn </CustomButton>
                 </div>
             </form>
         </div>
