@@ -13,7 +13,7 @@ const CartDropDown = () => {
     const navigate = useNavigate();
     return (
         <div className='cart-dropdown'>
-            <div className='cart-item'>
+            <div className='cart-items'>
                 { cartItems.length ?
                     ( cartItems.map(
                         (item) => <CartItem key={item.id} cartItem={item}/>
