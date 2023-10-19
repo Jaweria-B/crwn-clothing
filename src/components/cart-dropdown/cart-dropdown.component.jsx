@@ -17,8 +17,8 @@ const CartDropDown = () => {
     const isCartOpen = useSelector(selectIsCartOpen);
 
     const goToCheckoutHandler = () => {
-        dispatch(setIsCartOpen(!isCartOpen));
         navigate('/checkout');
+        dispatch(setIsCartOpen(!isCartOpen));
         
     }
     return (
