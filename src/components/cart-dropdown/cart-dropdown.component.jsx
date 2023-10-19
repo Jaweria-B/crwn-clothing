@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import './cart-dropdown.styles.scss';
@@ -6,11 +6,21 @@ import './cart-dropdown.styles.scss';
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
 
-import { selectCartItems } from '../../redux/cart/cart-selector';
+import { setIsCartOpen } from '../../redux/cart/cart-actions';
+import { selectIsCartOpen, selectCartItems } from '../../redux/cart/cart-selector';
 
 const CartDropDown = () => {
-    const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const cartItems = useSelector(selectCartItems);
+    const isCartOpen = useSelector(selectIsCartOpen);
+
+    const goToCheckoutHandler = () => {
+        dispatch(setIsCartOpen(!isCartOpen));
+        navigate('/checkout');
+        
+    }
     return (
         <div className='cart-dropdown'>
             <div className='cart-items'>
@@ -22,7 +32,7 @@ const CartDropDown = () => {
                     <span className="error-message">Your cart is empty</span>
                 }
             </div>
-            <CustomButton>GO TO CHECKOUT</CustomButton>
+            <CustomButton onClick={goToCheckoutHandler} >GO TO CHECKOUT</CustomButton>
         </div>
     );
 }
