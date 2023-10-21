@@ -47,7 +47,7 @@ function App() {
           currentUser ? (<Navigate to='/' />) : (<SignInAndSignUpPage/>)
           }  
         />
-        <Route path='/shop' element={<ShopPage/>}/>
+        <Route path='/shop/*' element={<ShopPage/>}/>
         <Route path='/shop/hats' element={<HatsPage/>} />
         <Route path='/checkout' element={<CheckOut/>}/>
       </Routes>
