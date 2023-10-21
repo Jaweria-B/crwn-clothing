@@ -1,11 +1,23 @@
 import { createSelector } from "reselect";
 
-const selectShop = (state) => state.shop;
+const selectShopReducer = (state) => state.shop;
 
 export const selectShopData = createSelector(
-    [selectShop],
+    [selectShopReducer],
     shop => shop.collections
 )
+
+export const selectCollectionMap = createSelector(
+    [selectShopData],
+    (collections) => 
+        collections.reduce( (acc, collection) => {
+            const { title, items } = collection;
+            acc[title.toLowerCase()] = items;
+            return acc; 
+        },
+            {} 
+        )
+);
 
 
 // const COLLECTION_ID_MAP = {

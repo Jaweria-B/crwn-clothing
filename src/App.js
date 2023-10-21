@@ -12,11 +12,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setCurrentUser } from './redux/user/user-actions';
 import { selectCurrentUser } from './redux/user/user-selector';
 
-const HatsPage = () => (
-  <div>
-    <h1>Hats Page</h1>
-  </div>
-);
 
 function App() {
   const currentUser = useSelector(selectCurrentUser, {
@@ -48,7 +43,6 @@ function App() {
           }  
         />
         <Route path='/shop/*' element={<ShopPage/>}/>
-        <Route path='/shop/hats' element={<HatsPage/>} />
         <Route path='/checkout' element={<CheckOut/>}/>
       </Routes>
     </div>
