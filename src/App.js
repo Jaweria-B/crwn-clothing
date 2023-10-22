@@ -5,7 +5,7 @@ import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/signIn-and-signUpPage/signIn-and-signUp.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
-import CheckOut from './components/checkout/checkout.component';
+import CheckOut from './pages/checkout/checkout.component';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from './firebase/firebase.utils';
 import { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
