@@ -1,22 +1,31 @@
 import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
 
 import './collection-overview.styles.scss';
 
 import CollectionPreview from '../collection-preview/collection-preview.component';
 
-import { selectShopData } from '../../redux/shop/shop.selectors';
+import { selectCollectionMap } from '../../redux/shop/shop.selectors';
 
 const CollectionsOverview = () => {
-    const collections = useSelector(selectShopData);
+    const collectionsMap = useSelector(selectCollectionMap);
 
     return (
-        <div className="collections-overview">
-            {
-                collections.map( ({id, ...otherCollectionProps} ) => (
-                    <CollectionPreview key={id} {...otherCollectionProps}/>
-                ))
-            }
-        </div>
+        <Fragment>
+            <div className="collections-overview">
+                {
+                    Object.keys(collectionsMap).map((title) => {
+                        const products = collectionsMap[title];
+                        return (
+                            <CollectionPreview key={title} title={title} items={products} />
+                        );
+                    })
+                    // collections.map( ({id, ...otherCollectionProps} ) => (
+                    //     <CollectionPreview key={id} {...otherCollectionProps}/>
+                    // ))
+                }
+            </div>
+        </Fragment>
     );
 }
 
