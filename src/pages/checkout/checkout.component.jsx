@@ -7,7 +7,7 @@ import StripeCheckoutButton from '../../components/stripe-button/stripe-button.c
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart-selector';
 
-const CheckOut = ( {cartItem}) => {
+const CheckOut = () => {
 
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);

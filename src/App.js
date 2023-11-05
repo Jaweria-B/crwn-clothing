@@ -1,14 +1,17 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/header/header.component';
+
 import SignInAndSignUpPage from './pages/signIn-and-signUpPage/signIn-and-signUp.component';
 import HomePage from './pages/HomePage/HomePage.component';
 import ShopPage from './pages/ShopPage/shop.component';
 import CheckOut from './pages/checkout/checkout.component';
+
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from './firebase/firebase.utils';
-import { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
 import { setCurrentUser } from './redux/user/user-actions';
 import { selectCurrentUser } from './redux/user/user-selector';
 
@@ -27,6 +30,13 @@ function App() {
   
         dispatch(setCurrentUser(user));
       });
+
+      // addCollectionAndDocuments(
+      //   'collections', 
+      //   SHOP_DATA.map( 
+      //     ({title, items}) => ({title, items})
+      //   )
+      // );
   
       return unsubscribe;
     }
