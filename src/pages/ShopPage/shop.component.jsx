@@ -5,28 +5,25 @@ import { useDispatch } from 'react-redux';
 import CollectionsOverview from '../../components/collections-overview/collection-overview.component';
 import CollectionPage from '../collection/collection.component';
 
-import { getCategoriesAndDocuments } from '../../firebase/firebase.utils';
-
-import { setCategories } from '../../redux/shop/shop.actions';
+import { fetchCategoriesStartAsync } from '../../redux/shop/shop.actions';
 
 const ShopPage = () => {
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-      const getCategoriesMap = async () => {
-        const collectionsArray = await getCategoriesAndDocuments('collections');
-        // console.log(collectionsArray);
-        dispatch(setCategories(collectionsArray));
-      };
-  
-      getCategoriesMap();
-    }, []);
+      dispatch(fetchCategoriesStartAsync());
+    }, [dispatch]);
 
     return(
         <div className='shop-page'>
             <Routes>
-                <Route index element={<CollectionsOverview/>}/>
-                <Route path=':collection' element={<CollectionPage/>}/>
+                <Route index
+                   element={<CollectionsOverview />}
+                />
+                <Route path=':collection' 
+                  element={<CollectionPage />}
+                />
             </Routes>
         </div>
     )

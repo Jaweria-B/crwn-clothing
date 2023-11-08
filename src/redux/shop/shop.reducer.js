@@ -1,8 +1,9 @@
-import SHOP_DATA from "./shop.data";
 import { CATEGORIES_ACTION_TYPES } from "./shop.types";
 
 const INITIAL_STATE = {
     collections: [],
+    isLoading: false,
+    error: null,  
 }
 
 export const shopReducer = (state = INITIAL_STATE, action = {}) => {
@@ -11,6 +12,19 @@ export const shopReducer = (state = INITIAL_STATE, action = {}) => {
     switch (type) {
         case CATEGORIES_ACTION_TYPES.SET_CATEGORIES:
             return { ...state, collections: payload };
+
+        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+
+        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS:
+            return { ...state, isLoading: false, collections: payload };
+            
+        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED:
+            return { ...state, isLoading: false, error: payload };
+
         default:
             return state;
     }

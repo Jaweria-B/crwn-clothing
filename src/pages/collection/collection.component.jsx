@@ -5,17 +5,16 @@ import { useParams } from 'react-router-dom';
 import './collection.styles.scss'; 
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
+import Spinner from '../../components/with-spinner/with-spinner.compnent';
  
-import { selectCollectionMap } from '../../redux/shop/shop.selectors';
+import { selectCollectionMap, selectIsLoading } from '../../redux/shop/shop.selectors';
+
 
 const CollectionPage = () => {
 
-    // const collection = useSelector(sellectCollection);
-
-    // console.log(collection);
-
     const { collection } = useParams();
     const collectionMap = useSelector(selectCollectionMap);
+    const isLoading = useSelector(selectIsLoading);
     const [ products, setProducts ] = useState(collectionMap[collection]);
 
     useEffect(
@@ -29,16 +28,25 @@ const CollectionPage = () => {
         <Fragment>
             <div className='collection-page'>
                 <h2 className='title'> {collection.toUpperCase()} </h2>
-                <div className="items">
-                    {
-                        products && 
-                            products.map(
-                                (product) => (
-                                    <CollectionItem key={product.id} product={product}/>
-                                )
-                            )
-                    }
-                </div>
+                {
+                    isLoading ?
+                    (
+                        <Spinner/>
+                    )
+                    :
+                    (
+                        <div className="items">
+                            {
+                                products && 
+                                    products.map(
+                                        (product) => (
+                                            <CollectionItem key={product.id} product={product}/>
+                                        )
+                                    )
+                            }
+                        </div>
+                    )
+                }
             </div>
         </Fragment>
     );

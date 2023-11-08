@@ -66,7 +66,7 @@ const SignIn = () => {
 
                 <div className='buttons'>
                     <CustomButton type='submit'> Sign In </CustomButton>
-                    <CustomButton onClick={signInWithGooglePopup} buttonType={BUTTON_TYPE_CLASSES.google} > Google SignIn </CustomButton>
+                    <CustomButton onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google} > Google SignIn </CustomButton>
                 </div>
             </form>
         </div>
