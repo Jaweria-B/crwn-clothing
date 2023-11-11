@@ -10,9 +10,6 @@ export const shopReducer = (state = INITIAL_STATE, action = {}) => {
     const { type, payload } = action;
 
     switch (type) {
-        case CATEGORIES_ACTION_TYPES.SET_CATEGORIES:
-            return { ...state, collections: payload };
-
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
             return {
                 ...state,

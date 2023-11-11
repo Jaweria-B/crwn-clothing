@@ -1,11 +1,6 @@
 import { CATEGORIES_ACTION_TYPES } from "./shop.types";
 import { createAction } from "../../reducer/reducer.utils";
 import { getCategoriesAndDocuments } from "../../firebase/firebase.utils";
-
-
-export const setCategories = (collectionArray) =>
-  createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES, collectionArray);
-
   
 export const fetchCategoriesStart = () =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);

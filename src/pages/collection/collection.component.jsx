@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import './collection.styles.scss'; 
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
-import Spinner from '../../components/with-spinner/with-spinner.compnent';
+import Spinner from '../../components/spinner/spinner.compnent';
  
 import { selectCollectionMap, selectIsLoading } from '../../redux/shop/shop.selectors';
 

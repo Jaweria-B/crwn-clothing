@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import './collection-overview.styles.scss';
 
 import CollectionPreview from '../collection-preview/collection-preview.component';
-import Spinner from '../with-spinner/with-spinner.compnent';
+import Spinner from '../spinner/spinner.compnent';
 
 import { selectCollectionMap, selectIsLoading } from '../../redux/shop/shop.selectors';
 
