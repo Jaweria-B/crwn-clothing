@@ -23,22 +23,22 @@ function App() {
   const dispatch = useDispatch();
   useEffect( 
     () => {
-      const unsubscribe = onAuthStateChangedListener((user) => {
-        if (user) {
-          createUserDocumentFromAuth(user);
-        }
+      // const unsubscribe = onAuthStateChangedListener((user) => {
+      //   if (user) {
+      //     createUserDocumentFromAuth(user);
+      //   }
   
-        dispatch(setCurrentUser(user));
-      });
+      //   dispatch(setCurrentUser(user));
+      // });
 
-      // addCollectionAndDocuments(
-      //   'collections', 
-      //   SHOP_DATA.map( 
-      //     ({title, items}) => ({title, items})
-      //   )
-      // );
+      // // addCollectionAndDocuments(
+      // //   'collections', 
+      // //   SHOP_DATA.map( 
+      // //     ({title, items}) => ({title, items})
+      // //   )
+      // // );
   
-      return unsubscribe;
+      // return unsubscribe;
     }
     , [dispatch]
   );

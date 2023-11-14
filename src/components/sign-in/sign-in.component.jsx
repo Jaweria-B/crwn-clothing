@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -6,12 +7,16 @@ import { BUTTON_TYPE_CLASSES } from '../custom-button/custom-button.component';
 
 import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from '../../firebase/firebase.utils';
 
+import { googleSignInStart } from '../../redux/user/user-actions';
+
 const defaultFormFields = {
     email: '',
     password: ''
 }
 
 const SignIn = () => {
+    const dispatch = useDispatch();
+
     // using state because we have to change the email, password frequently
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {email, password} = formFields;
@@ -36,10 +41,10 @@ const SignIn = () => {
         setFormFields({ ...formFields, [name]: value});
     }
 
-    async function signInWithGoogle () {
-        await signInWithGooglePopup();
-    };
-    
+    const signInWithGoogle = async () => {
+        dispatch(googleSignInStart());
+    }
+
     return (
         <div className='sign-in'>
             <h2>I already have an account</h2>
@@ -66,7 +71,11 @@ const SignIn = () => {
 
                 <div className='buttons'>
                     <CustomButton type='submit'> Sign In </CustomButton>
-                    <CustomButton onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google} > Google SignIn </CustomButton>
+                    <CustomButton 
+                        onClick={signInWithGoogle} 
+                        buttonType={BUTTON_TYPE_CLASSES.google}
+                        type='button' 
+                        > Google SignIn </CustomButton>
                 </div>
             </form>
         </div>
