@@ -62,6 +62,7 @@ const SignUp = () => {
                     value={displayName}
                     onChange={handleChange}
                     label='Display Name'
+                    autoComplete="on"
                     required
                 />
                 <FormInput
@@ -70,6 +71,7 @@ const SignUp = () => {
                     value={email}
                     onChange={handleChange}
                     label='Email'
+                    autoComplete="on"
                     required
                 />
                 <FormInput
@@ -78,6 +80,7 @@ const SignUp = () => {
                     value={password}
                     onChange={handleChange}
                     label='password'
+                    autoComplete="on"
                     required
                 />
                 <FormInput
@@ -86,6 +89,7 @@ const SignUp = () => {
                     value={confirmPassword}
                     onChange={handleChange}
                     label='Confirm Password'
+                    autoComplete="on"
                     required
                 />
 

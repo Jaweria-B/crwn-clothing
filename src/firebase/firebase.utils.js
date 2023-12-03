@@ -40,11 +40,13 @@ provider.setCustomParameters({
 export const auth = getAuth(app);
 auth.languageCode = "it";
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => 
+  signInWithPopup(auth, provider);
+
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, provider);
 
-export const db = getFirestore(app);
+export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -77,8 +79,7 @@ export const createUserDocumentFromAuth = async (
 
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToadd,
-  field
+  objectsToadd
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -118,8 +119,7 @@ export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
 export const getCurrentUser = () => {
-  return new Promise(
-    (resolve, reject) => {
+  return new Promise((resolve, reject) => {
       const unsubscribe = onAuthStateChanged(
         auth, 
         (userAuth) => {

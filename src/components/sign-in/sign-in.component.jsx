@@ -59,6 +59,7 @@ const SignIn = () => {
                 value={email} 
                 label={'email'}
                 handleChange={handleChange}
+                autoComplete="on"
                 required
                 />
 
@@ -68,6 +69,7 @@ const SignIn = () => {
                 value={password}
                 label={'password'}
                 handleChange={handleChange} 
+                autoComplete="on"
                 required
                 />
 

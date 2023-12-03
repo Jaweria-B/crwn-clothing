@@ -23,6 +23,7 @@ import {
 
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
+    console.log('SnapShoting!');
     try {
         const userSnapshot = call(
             createUserDocumentFromAuth,
@@ -122,14 +123,12 @@ export function* onSignOutStart() {
 /* ------------------------------------------------------------------------------------------------  */
 
 export function* userSagas() {
-    yield all(
-        [
+    yield all([
             call(onGoogleSignInStart),
             call(onCheckUserSession),
             call(onEmailSignInStart),
             call(onSignUpStart),
             call(onSignUpSuccess),
             call(onSignOutStart)
-        ]
-    );
+    ]);
 }

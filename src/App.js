@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
@@ -17,40 +17,49 @@ import { selectCurrentUser } from './redux/user/user-selector';
 
 
 function App() {
-  const currentUser = useSelector(selectCurrentUser, {
-    equalityFn: shallowEqual,
-  });
+  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(checkUserSession());
+  // }, [dispatch]);
+
   useEffect( 
     () => {
-      // const unsubscribe = onAuthStateChangedListener((user) => {
-      //   if (user) {
-      //     createUserDocumentFromAuth(user);
-      //   }
+      const unsubscribe = onAuthStateChangedListener((user) => {
+        if (user) {
+          createUserDocumentFromAuth(user);
+        }
   
-      //   dispatch(setCurrentUser(user));
-      // });
+        dispatch(setCurrentUser(user));
+      });
 
-      // // addCollectionAndDocuments(
-      // //   'collections', 
-      // //   SHOP_DATA.map( 
-      // //     ({title, items}) => ({title, items})
-      // //   )
-      // // );
+      // addCollectionAndDocuments(
+      //   'collections', 
+      //   SHOP_DATA.map( 
+      //     ({title, items}) => ({title, items})
+      //   )
+      // );
   
-      // return unsubscribe;
+      return unsubscribe;
     }
     , [dispatch]
   );
+  
   return (
     <div>
       <Header/> 
       <Routes>
         <Route index path='/' element={<HomePage/>} />
         <Route path='/signin'
-         element={
-          currentUser ? (<Navigate to='/' />) : (<SignInAndSignUpPage/>)
-          }  
+         element = {
+           currentUser ? (<Navigate to='/' />) : (<SignInAndSignUpPage/>)
+          //  currentUser ? 
+          //   (console.log('User is here')) 
+          //   : 
+          //   (<SignInAndSignUpPage/>)
+         }
+            
         />
         <Route path='/shop/*' element={<ShopPage/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
